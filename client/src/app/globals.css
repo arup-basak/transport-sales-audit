@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  scroll-behavior: smooth;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  main {
+    @apply h-[93vh] p-4 overflow-y-scroll
+  }
+  
+  h1 {
+    @apply font-semibold text-lg dark:text-white;
+  }
+
+  .modal-buttons > button, .control-buttons > button  {
+    @apply text-xs whitespace-nowrap text-white px-4 py-2 rounded-md flex items-center justify-center gap-2;
+  }
+
+  .aside {
+    @apply h-[93vh] p-4
+  }
+}

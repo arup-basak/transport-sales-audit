@@ -1,0 +1,36 @@
+{
+  "name": "sales-audit",
+  "version": "0.0.1",
+  "main": "index.ts",
+  "author": "Arup Basak <email.arupbasak@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc-watch --onSuccess \"npm start\"",
+    "lint": "eslint .",
+    "start": "prisma migrate dev --name init && node ./dist/index.js",
+    "studio": "prisma studio"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/morgan": "^1.9.9",
+    "@types/node": "^22.8.5"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.21.1",
+    "axios": "^1.7.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "5",
+    "helmet": "^8.0.0",
+    "morgan": "^1.10.0",
+    "npm": "^10.9.0",
+    "prisma": "^5.21.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3",
+    "zod": "^3.23.8",
+    "zod-validation-error": "^3.4.0"
+  }
+}
