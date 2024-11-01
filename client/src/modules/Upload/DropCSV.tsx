@@ -44,7 +44,7 @@ const DropCSV = () => {
         <DataTable
           columns={income_column}
           data={timelineObj}
-          className="max-h-40"
+          className="max-h-40 md:max-h-80"
         />
         <div className="modal-buttons flex gap-2">
           <DeleteEntireTimeline

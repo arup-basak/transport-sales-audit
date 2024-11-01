@@ -19,10 +19,10 @@ export default function Income() {
         className="col-span-2 max-h-[50vh] md:max-h-[80vh]"
         onRowClick={(index) => setCurrentView(index)}
       />
-      <div className="p-4 text-gray-500">
+      <div className="p-4 text-gray-500 space-y-2">
         {timelineData[currentView] &&
           Object.entries(timelineData[currentView]).map(([key, value]) => (
-            <div key={key} className="mb-2">
+            <div key={key}>
               <span className="font-semibold">{key}</span>:{" "}
               {formatEntryValue(value)}
             </div>

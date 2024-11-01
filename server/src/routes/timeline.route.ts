@@ -1,10 +1,12 @@
 import express from 'express';
 import { TimelineController } from '../controller/timeline.controller';
 import { validateResponse } from '../middlewares/validate.middleware';
+import { auth } from '../middlewares/auth.middleware';
 
 const router = express.Router();
 const timelineController = new TimelineController();
 
+router.use(auth);
 router.use(validateResponse);
 
 router.post('/', timelineController.addTimeline);

@@ -1,6 +1,7 @@
-import { useToast } from "@/components/Toast";
-import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
+import { useEffect } from "react";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import useRequest from "./useRequest";
+import { useTimelineStore } from "@/store/timeline";
 
 const useTimeline = () => {
   const {
@@ -13,43 +14,48 @@ const useTimeline = () => {
     deleteBulkTimeline,
     updateTimelineValue,
   } = useRequest();
-
-  const queryClient = useQueryClient();
-  const { addToast } = useToast();
+  const {
+    timelines,
+    setTimelines,
+    updateTimeline: updateStoreTimeline,
+  } = useTimelineStore();
 
   const timelineQuery = useQuery({
     queryKey: ["timelines"],
     queryFn: fetchAllTimelineData,
   });
 
+  useEffect(() => {
+    if (timelineQuery.data) {
+      setTimelines(timelineQuery.data);
+    }
+  });
+
   const addTimelineMutation = useMutation({
     mutationFn: addTimeline,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["timelines"] });
-      addToast("Timeline added successfully", "success");
+    onSuccess: (newTimeline) => {
+      if (newTimeline) useTimelineStore.getState().addTimeline(newTimeline);
     },
   });
 
   const deleteTimelineMutation = useMutation({
     mutationFn: deleteTimeline,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["timelines"] });
-      addToast("Timeline deleted successfully", "success");
+    onSuccess: (_, deletedId) => {
+      useTimelineStore.getState().deleteTimeline(deletedId);
     },
   });
 
   const updateTimelineMutation = useMutation({
     mutationFn: (params: { id: string; value: number }) =>
       updateTimelineValue(params.id, params.value),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["timelines"] });
-      addToast("Timeline updated successfully", "success");
+    onSuccess: (_, params) => {
+      updateStoreTimeline(params.id, params.value);
     },
   });
 
   return {
     // Query result
-    timelineData: timelineQuery.data ?? [],
+    timelineData: timelines,
     isLoading: timelineQuery.isLoading,
     isError: timelineQuery.isError,
     error: timelineQuery.error,

@@ -1,5 +1,5 @@
 import React from "react";
-import ToogleThemeButton from "./ToogleThemeButton";
+import ToogleThemeButton from "../ToogleThemeButton";
 import CollapsableNavbar from "./CollapsableNavbar";
 
 const NavBar = () => {

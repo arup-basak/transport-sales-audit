@@ -7,11 +7,12 @@ RUN npm install -g pnpm
 
 # Copy package files
 COPY /package*.json ./
-COPY tsconfig*.json ./
-COPY prisma ./prisma/
 
 # Copy the rest of the application code
-COPY / /
+COPY / ./
+
+# Copy the script to the container
+COPY generate_secret.sh /app/generate_secret.sh
 
 # Install dependencies using pnpm
 RUN pnpm install
@@ -22,6 +23,9 @@ RUN pnpm build
 
 # Expose the port the app runs on
 EXPOSE 8080
+
+# Use the script as the entrypoint
+ENTRYPOINT ["/app/generate_secret.sh"]
 
 # Start command with migrations using pnpm
 CMD ["sh", "-c", "pnpm start"]

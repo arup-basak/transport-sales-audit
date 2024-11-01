@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 prisma
   .$connect()
   .then(() => {
-    console.info("⚡️[POSTGRESQL]: CONNECTED TO DATABASE");
+    console.info("⚡️[POSTGRESQL]: CONNECTED TO PRISMA DATABASE");
   })
   .catch((error) => {
     console.error("⚡️[POSTGRESQL]: ERROR CONNECTING TO DATABASE", error);

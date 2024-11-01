@@ -29,6 +29,10 @@ services:
     environment:
       SERVER_PORT: 8080
       DATABASE_URL: postgresql://postgres:postgres@postgres:5432/sales-audit
+      NODE_ENV: production
+    volumes:
+      - ./server:/usr/src/app
+      - /usr/src/app/node_modules
 
   client:
     build:
@@ -39,6 +43,8 @@ services:
       - "3000:3000"
     environment:
       NODE_ENV: production
+    env_file:
+      - .env
     depends_on:
       postgres:
         condition: service_healthy

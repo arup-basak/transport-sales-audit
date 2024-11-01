@@ -6,12 +6,18 @@ import morgan from "morgan";
 import "dotenv/config";
 
 import timelineRoute from "./routes/timeline.route";
+import authRoute from "./routes/auth.route";
 
 const app: Express = express();
-const port = process.env.SERVER_PORT;
+const port = process.env.SERVER_PORT || 8080;
 
 // Middlewares
-app.use(cors({ origin: "*" }));
+app.use(
+  cors({
+    origin: "*",
+    credentials: true,
+  })
+);
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -19,6 +25,7 @@ app.use(morgan("dev"));
 
 // Routes
 app.use("/api/v1/timeline", timelineRoute);
+app.use("/api/v1/auth", authRoute);
 
 app.get("/healthcheck", (_: Request, res: Response) => {
   const now = new Date();
@@ -29,9 +36,9 @@ app.get("/healthcheck", (_: Request, res: Response) => {
   });
 });
 
-// app.use((_: Request, res: Response) => {
-//   res.status(404).json({ success: false, message: "Route not found" });
-// });
+app.use((_: Request, res: Response) => {
+  res.status(404).json({ success: false, message: "Route not found" });
+});
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);

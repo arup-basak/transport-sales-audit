@@ -2,6 +2,7 @@ import React, { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { motion } from "framer-motion";
 import { Upload, FileSpreadsheet, X } from "lucide-react";
+import { twMerge } from "tailwind-merge";
 
 interface Props {
     onFiledrop: (file: File) => void;
@@ -38,18 +39,14 @@ const Dropzone = ({onFiledrop}: Props) => {
     >
       <div
         {...getRootProps()}
-        className={`
-          relative rounded-lg border-2 border-dashed p-6 sm:p-8
-          flex flex-col items-center justify-center text-center
-          cursor-pointer transition-colors
-          ${
-            isDragActive
-              ? "border-blue-500 bg-blue-50 dark:border-blue-400 dark:bg-blue-950/50"
-              : isDragReject
-              ? "border-red-500 bg-red-50 dark:border-red-400 dark:bg-red-950/50"
-              : "border-gray-300 hover:border-gray-400 dark:border-gray-600 dark:hover:border-gray-500"
-          }
-        `}
+        className={twMerge(
+          "relative rounded-lg border-2 border-dashed p-6 sm:p-8",
+          "flex flex-col items-center justify-center text-center",
+          "cursor-pointer transition-colors",
+          isDragActive && "border-blue-500 bg-blue-50 dark:border-blue-400 dark:bg-blue-950/50",
+          isDragReject && "border-red-500 bg-red-50 dark:border-red-400 dark:bg-red-950/50",
+          !isDragActive && !isDragReject && "border-gray-300 hover:border-gray-400 dark:border-gray-600 dark:hover:border-gray-500"
+        )}
       >
         <input {...getInputProps()} />
 
