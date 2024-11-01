@@ -7,9 +7,11 @@ RUN npm install -g pnpm
 
 # Copy package files
 COPY /package*.json ./
+COPY tsconfig*.json ./
+COPY prisma ./prisma/
 
 # Copy the rest of the application code
-COPY / ./
+COPY / /
 
 # Install dependencies using pnpm
 RUN pnpm install

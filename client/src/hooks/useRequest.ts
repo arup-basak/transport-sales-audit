@@ -13,6 +13,7 @@ const useRequest = () => {
       );
       return response.data.data;
     } catch (error) {
+      console.error(error);
       addToast("Failed to fetch timeline data", "error");
       return [];
     }
