@@ -9,16 +9,24 @@ const baseURL =
 const axiosInstance = axios.create({
   baseURL,
   timeout: 5000,
+  withCredentials: true, // Enable sending cookies
   headers: {
     "Content-Type": "application/json",
     Authorization: `Bearer ${Cookies.get("token")}`,
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
   },
 });
 
 export const nonSecuredInstance = axios.create({
   baseURL,
   timeout: 5000,
-  headers: { "Content-Type": "application/json" },
+  withCredentials: true, 
+  headers: {
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+  },
 });
 
 export default axiosInstance;
