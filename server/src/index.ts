@@ -11,8 +11,10 @@ import authRoute from "./routes/auth.route";
 const app: Express = express();
 const port = process.env.SERVER_PORT || 8080;
 
+const CLIENT_URL = process.env.CLIENT_URL || "*";
+
 const allowedOrigins = process.env.NODE_ENV === 'production' 
-  ? ['https://arupbasak.xyz'] 
+  ? [CLIENT_URL] 
   : ['http://localhost:3000'];
 
 
@@ -20,9 +22,7 @@ const allowedOrigins = process.env.NODE_ENV === 'production'
 app.use(
   cors({
     origin: allowedOrigins,
-    credentials: true, // Enable credentials
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 app.use(helmet());

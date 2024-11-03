@@ -5,4 +5,5 @@ export const income_column: Column<TimelineData>[] = [
   { key: "date", header: "Date" },
   { key: "actual", header: "Actual" },
   { key: "forecast", header: "Forecast" },
+  { key: "value", header: "Value" },
 ];

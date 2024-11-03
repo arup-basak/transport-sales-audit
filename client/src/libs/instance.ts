@@ -9,7 +9,6 @@ const baseURL =
 const axiosInstance = axios.create({
   baseURL,
   timeout: 5000,
-  withCredentials: true, // Enable sending cookies
   headers: {
     "Content-Type": "application/json",
     Authorization: `Bearer ${Cookies.get("token")}`,
@@ -21,7 +20,6 @@ const axiosInstance = axios.create({
 export const nonSecuredInstance = axios.create({
   baseURL,
   timeout: 5000,
-  withCredentials: true, 
   headers: {
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": "*",

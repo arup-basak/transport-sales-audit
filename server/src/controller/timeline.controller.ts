@@ -102,7 +102,7 @@ export class TimelineController {
         where: { id },
         data: { value },
       });
-      res.status(200).json({ data });
+      res.status(200).json({ data, message: "Updated Successfully" });
     } catch (error) {
       res.status(500).json({ error });
     }

@@ -1,7 +1,8 @@
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/Toast";
-import { nonSecuredInstance as axiosInstance } from "@/libs/instance";
+import axiosInstance,{ nonSecuredInstance } from "@/libs/instance";
 import { Response } from "@/validation/response.validation";
+import Cookies from 'js-cookie';
 
 type Role = "ADMIN" | "USER";
 
@@ -10,6 +11,8 @@ interface User {
   email: string;
   name: string;
   role: Role;
+  createdAt: string;
+  updatedAt: string;
 }
 
 interface AuthResponse {
@@ -23,7 +26,7 @@ export const useAuth = () => {
 
   const login = async (email: string, password: string) => {
     try {
-      const response = await axiosInstance.post<Response<AuthResponse>>(
+      const response = await nonSecuredInstance.post<Response<AuthResponse>>(
         "/auth/login",
         {
           email,
@@ -33,9 +36,9 @@ export const useAuth = () => {
 
       if (response.data.success) {
         // Store token in cookie
-        document.cookie = `token=${response.data.data.token}; path=/`;
+        Cookies.set('token', response.data.data.token, { expires: 7, path: '/' });
         addToast("Login successful", "success");
-        router.push("/");
+        router.refresh();
         return response.data.data;
       }
     } catch (error: any) {
@@ -46,7 +49,7 @@ export const useAuth = () => {
 
   const register = async (name: string, email: string, password: string) => {
     try {
-      const response = await axiosInstance.post<Response<User>>(
+      const response = await nonSecuredInstance.post<Response<User>>(
         "/auth/register",
         {
           name,
@@ -61,14 +64,10 @@ export const useAuth = () => {
         return response.data.data;
       }
     } catch (error: any) {
+      console.error(error);
       addToast(error.response?.data?.message || "Registration failed", "error");
       return null;
     }
-  };
-
-  const logout = () => {
-    document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT";
-    router.push("/login");
   };
 
   const getUser = async () => {
@@ -80,10 +79,16 @@ export const useAuth = () => {
     }
   };
 
+  const logout = () => {
+    Cookies.remove("token");
+    addToast("Logged out successfully", "success");
+    router.refresh();
+  };
+
   return {
     login,
-    register,
     logout,
+    register,
     getUser,
   };
 };

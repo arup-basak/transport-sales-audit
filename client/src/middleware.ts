@@ -7,6 +7,12 @@ export function middleware(request: NextRequest) {
   const token = request.cookies.get("token")?.value;
   const { pathname } = request.nextUrl;
 
+  // If user has token and tries to access login/register, redirect to home
+  if (token && publicRoutes.includes(pathname)) {
+    const homeUrl = new URL("/", request.url);
+    return NextResponse.redirect(homeUrl);
+  }
+
   // Allow access to public routes without authentication
   if (publicRoutes.includes(pathname)) {
     return NextResponse.next();

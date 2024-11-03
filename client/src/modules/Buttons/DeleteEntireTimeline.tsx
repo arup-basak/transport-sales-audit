@@ -25,8 +25,8 @@ const DeleteEntireTimeline = ({
     const resp = await deleteAllTimeline();
     if (resp) {
       onComplete?.();
-      toggleModal();
     }
+    toggleModal();
   };
   return (
     <>

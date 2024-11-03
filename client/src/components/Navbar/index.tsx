@@ -1,6 +1,7 @@
 import React from "react";
 import ToogleThemeButton from "../ToogleThemeButton";
 import CollapsableNavbar from "./CollapsableNavbar";
+import Logout from "@/modules/Buttons/Logout";
 
 const NavBar = () => {
   return (
@@ -9,6 +10,7 @@ const NavBar = () => {
       <div className="flex items-center gap-2">
         <ToogleThemeButton />
         <CollapsableNavbar />
+        <Logout className="hidden md:block"/>
       </div>
     </nav>
   );

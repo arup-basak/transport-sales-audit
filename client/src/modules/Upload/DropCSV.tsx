@@ -15,7 +15,7 @@ const DropCSV = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { addToast } = useToast();
   const [timelineObj, setTimelineObject] = useState<TimelineData[]>([]);
-  const { addBulkTimeline } = useTimeline();
+  const { timelineData, addBulkTimeline } = useTimeline();
 
   const toogleModal = () => setIsOpen(!isOpen);
 
@@ -47,11 +47,13 @@ const DropCSV = () => {
           className="max-h-40 md:max-h-80"
         />
         <div className="modal-buttons flex gap-2">
-          <DeleteEntireTimeline
-            onComplete={handleFileUpload}
-            text="Override Existing Timeline"
-            modalText="Are you Want to Sure to Replace Entire Database?"
-          />
+          {timelineData.length !== 0 && (
+            <DeleteEntireTimeline
+              onComplete={handleFileUpload}
+              text="Override Existing Timeline"
+              modalText="Are you Want to Sure to Replace Entire Database?"
+            />
+          )}
           <button onClick={handleFileUpload} className="bg-blue-500">
             Merge Timeline
           </button>

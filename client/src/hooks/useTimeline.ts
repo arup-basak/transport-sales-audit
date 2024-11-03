@@ -29,7 +29,7 @@ const useTimeline = () => {
     if (timelineQuery.data) {
       setTimelines(timelineQuery.data);
     }
-  });
+  }, [timelineQuery.data, setTimelines]); 
 
   const addTimelineMutation = useMutation({
     mutationFn: addTimeline,

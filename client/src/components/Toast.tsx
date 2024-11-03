@@ -83,14 +83,14 @@ const Toast: React.FC<Toast & { onDismiss: () => void }> = ({
       animate="animate"
       exit="exit"
       whileHover="hover"
-      className={`${getBackgroundColor()} text-white p-4 rounded-md shadow-lg mb-4 flex items-center justify-between`}
+      className={`${getBackgroundColor()} text-white p-2 rounded-md shadow-lg mb-2 flex items-center justify-between text-sm`}
     >
       <span>{message}</span>
       <button
         onClick={onDismiss}
-        className="ml-4 p-1 rounded-full bg-transparent hover:bg-white hover:bg-opacity-20 transition-colors duration-200"
+        className="ml-2 p-0.5 rounded-full bg-transparent hover:bg-white hover:bg-opacity-20 transition-colors duration-200"
       >
-        <X size={16} />
+        <X size={14} />
       </button>
     </motion.div>
   );
@@ -118,7 +118,10 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({
   return (
     <ToastContext.Provider value={{ addToast, removeToast }}>
       {children}
-      <div className="fixed bottom-4 right-4 flex flex-col items-end" style={{zIndex: 999999}}>
+      <div
+        className="fixed bottom-4 right-4 flex flex-col items-end"
+        style={{ zIndex: 999999 }}
+      >
         <AnimatePresence>
           {toasts.map((toast) => (
             <Toast

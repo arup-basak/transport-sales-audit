@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { Field, Form, Formik } from "formik";
-import { useRouter } from "next/navigation";
 import { z } from "zod";
 import Input from "@/components/Input";
 import validationSchema from "@/validation/login.validation";
@@ -11,7 +10,6 @@ import { useAuth } from "@/hooks/useAuth";
 import Link from "next/link";
 
 const LoginPage = () => {
-  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const { login } = useAuth();
 

@@ -2,6 +2,7 @@ import { z } from "zod";
 
 const TimelineDataSchema = z
   .object({
+    id: z.string().optional(),
     date: z.string().transform((str) => new Date(str)),
     actual: z.string(),
     forecast: z.string(),

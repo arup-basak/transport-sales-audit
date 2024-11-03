@@ -81,7 +81,7 @@ export class AuthController {
       const token = jwt.sign(
         { id: user.id, email: user.email, role: user.role },
         process.env.JWT_SECRET as string,
-        { expiresIn: "24h" }
+        { expiresIn: "7d" }
       );
 
       res.json({
@@ -107,12 +107,6 @@ export class AuthController {
     try {
       const user = await prisma.user.findUnique({
         where: { id: req.user?.id },
-        select: {
-          id: true,
-          email: true,
-          name: true,
-          role: true,
-        },
       });
 
       if (!user) {
