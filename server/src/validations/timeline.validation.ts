@@ -5,6 +5,7 @@ const TimelineDataSchema = z
     date: z.string().transform((str) => new Date(str)),
     actual: z.string(),
     forecast: z.string(),
+    paidValue: z.number().default(0),
     value: z.number().default(0),
   })
   .catchall(z.unknown());

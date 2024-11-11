@@ -100,7 +100,7 @@ export class TimelineController {
       const { value } = req.body;
       const data = await prisma.timeline.update({
         where: { id },
-        data: { value },
+        data: { paidValue: value },
       });
       res.status(200).json({ data, message: "Updated Successfully" });
     } catch (error) {

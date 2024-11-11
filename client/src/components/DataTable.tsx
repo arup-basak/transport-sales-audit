@@ -19,6 +19,7 @@ interface DataTableProps<T extends Record<string, unknown>> {
   className?: string;
   stickyHeader?: boolean;
   onRowClick?: (rowIndex: number) => void;
+  isRowClickable?: (row: T) => boolean;
 }
 
 export default function DataTable<T extends Record<string, unknown>>({
@@ -27,6 +28,7 @@ export default function DataTable<T extends Record<string, unknown>>({
   className,
   stickyHeader = true,
   onRowClick,
+  isRowClickable,
 }: DataTableProps<T>) {
   const [sortConfig, setSortConfig] = useState<{
     key: KeysOfType<T>;
@@ -103,23 +105,31 @@ export default function DataTable<T extends Record<string, unknown>>({
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-          {sortedData.map((row, index) => (
-            <tr
-              key={index}
-              className="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700"
-              onClick={() => {
-                if (onRowClick) {
-                  onRowClick(index);
-                }
-              }}
-            >
-              {columns.map((column) => (
-                <td key={column.key} className="px-6 py-4 whitespace-nowrap">
-                  {formatEntryValue(row[column.key])}
-                </td>
-              ))}
-            </tr>
-          ))}
+          {sortedData.map((row, index) => {
+            const clickable = isRowClickable ? isRowClickable(row) : true;
+            return (
+              <tr
+                key={index}
+                className={twMerge(
+                  "bg-white dark:bg-gray-800",
+                  clickable
+                    ? "cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700"
+                    : "cursor-not-allowed opacity-75"
+                )}
+                onClick={() => {
+                  if (clickable && onRowClick) {
+                    onRowClick(index);
+                  }
+                }}
+              >
+                {columns.map((column) => (
+                  <td key={column.key} className="px-6 py-4 whitespace-nowrap">
+                    {formatEntryValue(row[column.key])}
+                  </td>
+                ))}
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>

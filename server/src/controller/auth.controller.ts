@@ -1,14 +1,14 @@
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import prisma from "../libs/prisma";
-import bcrypt from 'bcrypt';
-import {loginSchema, registerSchema} from "../validations/auth.validation";
+import bcrypt from "bcrypt";
+import { loginSchema, registerSchema } from "../validations/auth.validation";
 
 export class AuthController {
   async register(req: Request, res: Response) {
     try {
       const data = registerSchema.parse(req.body);
-      
+
       // Check if user exists
       const existingUser = await prisma.user.findUnique({
         where: { email: data.email },
@@ -53,7 +53,7 @@ export class AuthController {
   async login(req: Request, res: Response) {
     try {
       const data = loginSchema.parse(req.body);
-      console.log(data)
+      console.log(data);
 
       // Find user
       const user = await prisma.user.findUnique({
@@ -107,6 +107,12 @@ export class AuthController {
     try {
       const user = await prisma.user.findUnique({
         where: { id: req.user?.id },
+        select: {
+          id: true,
+          email: true,
+          name: true,
+          role: true,
+        },
       });
 
       if (!user) {
@@ -116,6 +122,8 @@ export class AuthController {
         });
         return;
       }
+
+    
 
       res.json({
         success: true,

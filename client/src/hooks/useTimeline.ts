@@ -23,18 +23,23 @@ const useTimeline = () => {
   const timelineQuery = useQuery({
     queryKey: ["timelines"],
     queryFn: fetchAllTimelineData,
+    staleTime: 5 * 60 * 1000, // Consider data fresh for 5 minutes
+    retry: 3, // Retry failed requests 3 times
   });
 
   useEffect(() => {
     if (timelineQuery.data) {
       setTimelines(timelineQuery.data);
     }
-  }, [timelineQuery.data, setTimelines]); 
+  }, [timelineQuery.data, setTimelines]);
 
   const addTimelineMutation = useMutation({
     mutationFn: addTimeline,
     onSuccess: (newTimeline) => {
-      if (newTimeline) useTimelineStore.getState().addTimeline(newTimeline);
+      if (newTimeline) {
+        useTimelineStore.getState().addTimeline(newTimeline);
+        timelineQuery.refetch();
+      }
     },
   });
 

@@ -1,0 +1,13 @@
+date,actual,forecast,paidValue,value
+2024-01-01,Milestone 1,Expected Milestone 1,1156.32,1428.45
+2024-01-31,Milestone 2,Expected Milestone 2,1623.18,1876.29
+2024-03-01,Milestone 3,Expected Milestone 3,2089.45,2312.67
+2024-03-31,Milestone 4,Expected Milestone 4,2534.87,2897.34
+2024-04-30,Milestone 5,Expected Milestone 5,3067.23,3456.12
+2024-05-31,Milestone 6,Expected Milestone 6,3567.23,3897.34
+2024-06-30,Milestone 7,Expected Milestone 7,4067.23,4297.34
+2024-07-31,Milestone 8,Expected Milestone 8,4567.23,4897.34
+2024-08-31,Milestone 9,Expected Milestone 9,5067.23,5297.34
+2024-09-30,Milestone 10,Expected Milestone 10,5567.23,5897.34
+2024-10-31,Milestone 11,Expected Milestone 11,6067.23,6297.34
+2024-11-30,Milestone 12,Expected Milestone 12,6567.23,6897.34

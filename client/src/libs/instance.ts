@@ -1,10 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const baseURL =
-  process.env.NODE_ENV === "production"
-    ? process.env.NEXT_PUBLIC_SERVER_URL
-    : "http://localhost:8080/api/v1";
+const baseURL = process.env.NEXT_PUBLIC_SERVER_URL;
 
 const axiosInstance = axios.create({
   baseURL,

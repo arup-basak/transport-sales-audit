@@ -21,7 +21,7 @@ export const useTimelineStore = create<TimelineStore>((set) => ({
   updateTimeline: (id, value) =>
     set((state) => ({
       timelines: state.timelines.map((t) =>
-        t.id === id ? { ...t, value } : t
+        t.id === id ? { ...t, paidValue: value } : t
       ),
     })),
   addTimeline: (timeline) =>

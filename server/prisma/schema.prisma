@@ -12,6 +12,7 @@ model Timeline {
   date      DateTime
   actual    String
   forecast  String
+  paidValue Float    @default(0)
   value     Float    @default(0)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
