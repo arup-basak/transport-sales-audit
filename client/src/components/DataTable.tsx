@@ -123,7 +123,7 @@ export default function DataTable<T extends Record<string, unknown>>({
                 }}
               >
                 {columns.map((column) => (
-                  <td key={column.key} className="px-6 py-4 whitespace-nowrap">
+                  <td key={column.key} className="px-6 py-4 whitespace-nowrap truncate max-w-sm">
                     {formatEntryValue(row[column.key])}
                   </td>
                 ))}

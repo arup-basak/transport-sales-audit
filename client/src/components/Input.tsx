@@ -1,6 +1,6 @@
 import React from "react";
 import { Eye, EyeClosed } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 interface InputProps {
   label: string;

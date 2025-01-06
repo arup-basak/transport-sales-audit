@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { LogOutIcon } from "lucide-react";
 import { twMerge } from "tailwind-merge";
 import { useAuth } from "@/hooks/useAuth";

@@ -1,4 +1,7 @@
 import { z } from "zod";
+import NumberParser from "intl-number-parser";
+
+const parse = NumberParser();
 
 const valueSchema = z
   .union([z.string(), z.number(), z.null()])
@@ -20,8 +23,8 @@ const TimelineDataSchema = z
     title: z.string(),
     actual: z.string(),
     forecast: z.string(),
-    paidValue: z.any(),
-    value: z.any(),
+    paidValue: valueSchema,
+    value: valueSchema,
   })
   .catchall(z.unknown());
 
@@ -37,12 +40,10 @@ export const convertToTimelineData = (data: any): TimelineData => {
   if (!("value" in data) && "actual" in data && "forecast" in data) {
     data = {
       ...data,
-      value:
-        Number(String(data.actual).replaceAll(",", "")) +
-        Number(String(data.forecast).replaceAll(",", "")),
+      value: parse(data.actual) + parse(data.forecast),
     };
   }
 
-  console.log(data)
+  console.log(data);
   return TimelineDataSchema.parse(data);
 };

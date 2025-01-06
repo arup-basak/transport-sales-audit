@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { Upload, FileSpreadsheet, X } from "lucide-react";
 import { twMerge } from "tailwind-merge";
 

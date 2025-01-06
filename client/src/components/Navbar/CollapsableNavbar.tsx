@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
 import sidebar_data from "@/constants";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 import { twMerge } from "tailwind-merge";
 import Logout from "@/modules/Buttons/Logout";
 
