@@ -27,6 +27,8 @@ const Dropzone = ({onFiledrop}: Props) => {
     onDrop,
     accept: {
       "text/csv": [".csv"],
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": [".xlsx"],
+      "application/vnd.ms-excel": [".xls"],
     },
     maxFiles: 1,
     multiple: false,
@@ -66,7 +68,7 @@ const Dropzone = ({onFiledrop}: Props) => {
               fileRejections.length > 1 ? (
                 "Please upload only one file"
               ) : (
-                "Only CSV files are accepted"
+                "Only CSV or Excel files are accepted"
               )
             ) : isDragActive ? (
               "Drop your CSV file here"

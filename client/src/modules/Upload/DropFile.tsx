@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Dropzone from "@/components/Dropzone";
 import { getCSV } from "@/utils/csv";
+import { getXLSX } from "@/utils/xlsx";
 import { useToast } from "@/components/Toast";
 import Modal from "@/components/Modal";
 import DeleteEntireTimeline from "@/modules/Buttons/DeleteEntireTimeline";
@@ -10,6 +11,8 @@ import useTimeline from "@/hooks/useTimeline";
 import { TimelineData } from "@/validation/timeline.validation";
 import DataTable from "@/components/DataTable";
 import { income_column } from "@/constants/datatable";
+import { fromError } from 'zod-validation-error';
+import { ZodError } from "zod";
 
 const DropCSV = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,12 +24,17 @@ const DropCSV = () => {
 
   const handleFileDrop = async (file: File) => {
     try {
-      const timelineObject = await getCSV(file);
+      const timelineObject = file.name.match(/\.(xlsx|xls)$/i)
+        ? await getXLSX(file)
+        : await getCSV(file);
       console.log(timelineObj);
       setTimelineObject(timelineObject);
       toogleModal();
     } catch (error) {
-      console.error(error);
+      if(error instanceof ZodError) {
+        addToast(fromError(error).toString(), "error");
+        return;
+      }
       addToast("File is Invalid", "error");
     }
   };

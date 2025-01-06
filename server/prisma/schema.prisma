@@ -10,6 +10,8 @@ datasource db {
 model Timeline {
   id        String   @id @default(cuid())
   date      DateTime
+  title     String
+  path      String
   actual    String
   forecast  String
   paidValue Float    @default(0)

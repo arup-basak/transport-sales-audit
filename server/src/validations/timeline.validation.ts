@@ -2,11 +2,14 @@ import { z } from "zod";
 
 const TimelineDataSchema = z
   .object({
+    id: z.string().optional(),
     date: z.string().transform((str) => new Date(str)),
+    path: z.string(),
+    title: z.string(),
     actual: z.string(),
     forecast: z.string(),
-    paidValue: z.number().default(0),
-    value: z.number().default(0),
+    paidValue: z.any(),
+    value: z.any(),
   })
   .catchall(z.unknown());
 

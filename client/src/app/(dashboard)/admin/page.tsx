@@ -1,4 +1,4 @@
-import DropCSV from "@/modules/Upload/DropCSV";
+import DropFile from "@/modules/Upload/DropFile";
 import DeleteEntireTimeline from "@/modules/Buttons/DeleteEntireTimeline";
 import Export from "@/modules/Buttons/Export";
 
@@ -9,7 +9,7 @@ const Page = () => {
         <DeleteEntireTimeline />
         <Export />
       </section>
-      <DropCSV />
+      <DropFile />
     </main>
   );
 };

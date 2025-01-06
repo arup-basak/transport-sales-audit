@@ -28,6 +28,8 @@ export class TimelineController {
 
       const createdEntries = await prisma.timeline.createMany({
         data: timelineEntries.map((entry) => ({
+          path: entry.path,
+          title: entry.title,
           date: new Date(entry.date),
           actual: entry.actual,
           forecast: entry.forecast,

@@ -1,5 +1,6 @@
 import Papa from "papaparse";
-import CSVRowSchema, {
+import {
+  convertToTimelineData,
   TimelineData as CSVRow,
 } from "@/validation/timeline.validation";
 
@@ -11,7 +12,7 @@ const getCSV = (
       complete: (results) => {
         try {
           const data: CSVRow[] = results.data.map((item) => {
-            return CSVRowSchema.parse(item);
+            return convertToTimelineData(item);
           });
           resolve(data);
         } catch (error) {

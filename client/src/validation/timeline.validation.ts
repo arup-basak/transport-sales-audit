@@ -8,7 +8,7 @@ const valueSchema = z
       const parsed = Number(val.replace(/[^\d.-]/g, ""));
       return isNaN(parsed) ? 0 : parsed;
     }
-    return val;
+    return isNaN(val) ? 0 : Number(val);
   })
   .default(0);
 
@@ -16,12 +16,33 @@ const TimelineDataSchema = z
   .object({
     id: z.string().optional(),
     date: z.string().transform((str) => new Date(str)),
+    path: z.string(),
+    title: z.string(),
     actual: z.string(),
     forecast: z.string(),
-    paidValue: valueSchema,
-    value: valueSchema,
+    paidValue: z.any(),
+    value: z.any(),
   })
   .catchall(z.unknown());
 
 export type TimelineData = z.infer<typeof TimelineDataSchema>;
 export default TimelineDataSchema;
+
+export const convertToTimelineData = (data: any): TimelineData => {
+  if ("time" in data) {
+    const combinedDate = `${data.date} ${data.time || ""}`;
+    data = { ...data, date: combinedDate };
+  }
+
+  if (!("value" in data) && "actual" in data && "forecast" in data) {
+    data = {
+      ...data,
+      value:
+        Number(String(data.actual).replaceAll(",", "")) +
+        Number(String(data.forecast).replaceAll(",", "")),
+    };
+  }
+
+  console.log(data)
+  return TimelineDataSchema.parse(data);
+};

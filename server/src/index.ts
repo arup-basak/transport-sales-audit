@@ -13,10 +13,10 @@ const port = process.env.SERVER_PORT || 8080;
 
 const CLIENT_URL = process.env.CLIENT_URL || "*";
 
-const allowedOrigins = process.env.NODE_ENV === 'production' 
-  ? [CLIENT_URL] 
-  : ['http://localhost:3000'];
-
+const allowedOrigins =
+  process.env.NODE_ENV === "production"
+    ? [CLIENT_URL]
+    : ["http://localhost:3000", "http://localhost:3001"];
 
 // Middlewares
 app.use(
@@ -26,7 +26,7 @@ app.use(
   })
 );
 app.use(helmet());
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 
