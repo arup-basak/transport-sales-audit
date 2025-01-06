@@ -13,10 +13,7 @@ const port = process.env.SERVER_PORT || 8080;
 
 const CLIENT_URL = process.env.CLIENT_URL || "*";
 
-const allowedOrigins =
-  process.env.NODE_ENV === "production"
-    ? [CLIENT_URL]
-    : ["http://localhost:3000", "http://localhost:3001"];
+const allowedOrigins = [CLIENT_URL];
 
 // Middlewares
 app.use(

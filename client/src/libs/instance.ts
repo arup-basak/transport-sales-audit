@@ -2,10 +2,11 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 const baseURL = process.env.NEXT_PUBLIC_SERVER_URL;
+const timeout = Number(process.env.NEXT_PUBLIC_REQUEST_TIMEOUT) || 5000;
 
 const axiosInstance = axios.create({
   baseURL,
-  timeout: 5000,
+  timeout,
   headers: {
     "Content-Type": "application/json",
     Authorization: `Bearer ${Cookies.get("token")}`,
